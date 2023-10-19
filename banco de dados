@@ -1,0 +1,46 @@
+-- Criação do Banco de Dados
+create database faculdade;
+use faculdade;
+show tables;
+-- tabela curso
+create table curso (
+	idCurso int primary key not null,
+    nome varchar (50)not null);
+-- tabela aluno
+create table Aluno (
+	idAluno int primary key not null,
+    matricula varchar (10) not null,
+    nome varchar (50)not null);
+-- tabela alunocurso
+create table AlunoCurso (
+	idAluno int not null,
+    idCurso int not null, 
+    anoEntrada int not null,
+    foreign key (idAluno) references Aluno(idAluno),
+    foreign key (idCurso) references curso(idCurso));
+-- tabela disciplina
+create table disciplina (
+	idDisciplina int primary key not null,
+	nome varchar (50) not null,
+    cargaHoraria int not null);
+-- tabela historico
+create table historico (
+	idAluno int not null,
+    idDisciplina int not null,
+    nota float not null,
+    dataHistorico date not null,
+foreign key (idAluno) references Aluno(idAluno),
+foreign key (idDisciplina) references disciplina(idDisciplina));
+-- tabela grade
+create table Grade ( 
+	idGrade int primary key not null,
+    idCurso int not null,
+    ano int not null,
+    cargaHorariaTotal int not null,
+    foreign key (idCurso) references curso(idCurso));
+-- tabela gradedisciplina
+create table GradeDisciplina (
+	idGrade int not null,
+    idDisciplina int not null,
+    foreign key (idGrade) references Grade(idGrade),
+    foreign key (idDisciplina) references disciplina(idDisciplina));  
